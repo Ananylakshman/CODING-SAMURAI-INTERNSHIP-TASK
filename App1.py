@@ -1,5 +1,4 @@
 import streamlit as st
-import pandas as pd
 import numpy as np
 import joblib
 
@@ -18,14 +17,11 @@ rooms = st.number_input("Average Number of Rooms", min_value=0.0, value=6.0)
 bedrooms = st.number_input("Average Number of Bedrooms", min_value=0.0, value=3.0)
 population = st.number_input("Area Population", min_value=0.0, value=30000.0)
 
-# Prepare input DataFrame with 5 features
-input_df = pd.DataFrame([[income, house_age, rooms, bedrooms, population]],
-                        columns=['Avg. Area Income', 'Avg. Area House Age', 
-                                 'Avg. Area Number of Rooms', 'Avg. Area Number of Bedrooms', 
-                                 'Area Population'])
+# Prepare input as NumPy array (order must match training)
+input_array = np.array([[income, house_age, rooms, bedrooms, population]])
 
 # Scale input
-input_scaled = scaler.transform(input_df)
+input_scaled = scaler.transform(input_array)
 
 # Predict button
 if st.button("Predict Price"):
